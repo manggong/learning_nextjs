@@ -1,16 +1,32 @@
-import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const App = () => {
+  const [name, setName] = useState('');
+  const router = useRouter();
+
+  const toTomato = () => {
+    router.push('/tomato');
+  };
+
+  const onChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const toInputName = () => {
+    router.push(`/vegetable/${name}`);
+  };
+
   return (
     <div>
-      <h2>Link to 'tomato' Page</h2>
-      <Link href='/tomato'>
-        <a>Move to '/tomato</a>
-      </Link>
-      <hr/>
-      <Link href='/vegetable/potato'>
-        <a>Move to potato</a>
-      </Link>
+      <button type='button' onClick={toTomato}>
+        going to tomato
+      </button>
+      <p>name</p>
+      <input value={name} onChange={onChange} style={{ marginRight: '12px' }} />
+      <button type='button' onClick={toInputName}>
+        going to inputValue
+      </button>
     </div>
   );
 };
