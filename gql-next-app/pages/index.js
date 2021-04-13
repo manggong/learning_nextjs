@@ -1,35 +1,35 @@
 import React, { useState, useRef, useCallback } from 'react';
+import { useQuery } from '@apollo/client';
 import TodoTemplate from '../components/TodoTemplate';
 import TodoInsert from '../components/TodoInsert';
 import TodoList from '../components/TodoList';
+import { GET_ALL_TODOS } from '../apollo/queries/getAllTodos';
+
+// export async function getServerSideProps() {
+
+//   const { data } = await client.query({
+//     GET_ALL_TODOS,
+//   });
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: 'This is first text',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: 'This is second text',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: 'This is third text',
-      checked: false,
-    },
-  ]);
+  const { data, loading, error } = useQuery(GET_ALL_TODOS);
 
-  const nextId = useRef(4);
+  const [todos, setTodos] = useState([data.todos]);
+
+  const nextId = useRef(101);
 
   const onInsert = useCallback(
-    (text) => {
+    (title) => {
       const todo = {
         id: nextId,
-        text,
-        checked: false,
+        title,
+        completed: false,
       };
       setTodos(todos.concat(todo));
       nextId.current += 1;
@@ -48,12 +48,22 @@ function App() {
     (id) => {
       setTodos(
         todos.map((todo) =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo,
         ),
       );
     },
     [todos],
   );
+
+  if (loading) {
+    console.log(data.todos);
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
   return (
     <TodoTemplate>

@@ -1,0 +1,17 @@
+import React from 'react';
+import { ApolloProvider } from '@apollo/react-hooks';
+import withApolloClient from '../apollo/index';
+
+const MyApp = ({ Component, pageProps, apollo }) => (
+  <ApolloProvider client={apollo}>
+    <Component {...pageProps} />
+  </ApolloProvider>
+);
+
+MyApp.getInitialProps = async ({ ctx, Component }) => {
+  const pageProps = await Component.getInitialProps?.(ctx);
+
+  return { pageProps };
+};
+
+export default withApolloClient(MyApp);
