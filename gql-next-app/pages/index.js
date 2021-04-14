@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
+import client from '../apollo/client';
 import { useQuery } from '@apollo/client';
 import TodoTemplate from '../components/TodoTemplate';
 import TodoInsert from '../components/TodoInsert';
@@ -15,14 +16,26 @@ import { GET_ALL_TODOS } from '../apollo/queries/getAllTodos';
 //       data,
 //     },
 //   };
-// }
+// }getInitialProps getServerSideProps
 
-function App() {
-  const { data, loading, error } = useQuery(GET_ALL_TODOS);
+export async function getServerSideProps() {
+  const { data } = await client.query({
+    query: GET_ALL_TODOS,
+  });
+  console.log(data);
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export function App({ data }) {
+  // const { data, loading, error } = useQuery(GET_ALL_TODOS);
 
   const [todos, setTodos] = useState([data.todos]);
 
-  const nextId = useRef(101);
+  const nextId = useRef(201);
 
   const onInsert = useCallback(
     (title) => {
@@ -55,15 +68,15 @@ function App() {
     [todos],
   );
 
-  if (loading) {
-    console.log(data.todos);
-    return <h2>Loading...</h2>;
-  }
+  // if (loading) {
+  //   console.log(data.todos);
+  //   return <h2>Loading...</h2>;
+  // }
 
-  if (error) {
-    console.error(error);
-    return null;
-  }
+  // if (error) {
+  //   console.error(error);
+  //   return null;
+  // }
 
   return (
     <TodoTemplate>
