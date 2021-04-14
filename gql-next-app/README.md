@@ -7,3 +7,4 @@
 - https://www.apollographql.com/docs/tutorial/data-source/
 - https://chanyeong.com/blog/post/2
 - https://www.apollographql.com/blog/getting-started-with-apollo-client-in-next-js/
+- [life_cycle_methods](https://darrengwon.tistory.com/744)
