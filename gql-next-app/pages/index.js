@@ -18,7 +18,7 @@ import { GET_ALL_TODOS } from '../apollo/queries/getAllTodos';
 //   };
 // }getInitialProps getServerSideProps
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { data } = await client.query({
     query: GET_ALL_TODOS,
   });
@@ -33,7 +33,7 @@ export async function getServerSideProps() {
 export function App({ data }) {
   // const { data, loading, error } = useQuery(GET_ALL_TODOS);
 
-  const [todos, setTodos] = useState([data.todos]);
+  const [todos, setTodos] = useState(data.todos);
 
   const nextId = useRef(201);
 
