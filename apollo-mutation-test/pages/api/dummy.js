@@ -8,5 +8,23 @@ export default (req, res) => {
       title: 'hello',
       content: 'hello content',
     },
+    {
+      id: 2,
+      postId: 2,
+      title: 'asd',
+      content: 'asd content',
+    },
+    {
+      id: 3,
+      postId: 3,
+      title: '123',
+      content: '123 content',
+    },
+    {
+      id: 4,
+      postId: 4,
+      title: 'fgh',
+      content: 'fgh content',
+    },
   ]);
 };

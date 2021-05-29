@@ -1,14 +1,13 @@
 import { ApolloServer } from 'apollo-server-micro';
 // import typeDefs from './schema';
 // import resolvers from './resolvers';
-
-// import TodoAPI from './datasources/todo';
+import DummyAPI from './datasources/dummy';
 
 const apolloServer = new ApolloServer({
   // typeDefs,
   // resolvers,
   dataSources: () => ({
-    // todoAPI: new TodoAPI(),
+    dummyAPI: new DummyAPI(),
   }),
 });
 
