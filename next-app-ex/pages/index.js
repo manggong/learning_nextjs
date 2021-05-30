@@ -26,6 +26,7 @@ const App = () => {
       <button type='button' onClick={() => router.push(`/vegetable/${name}`)}>
         {name}으로 가기
       </button>
+      <img src='/dog.jpg' alt='dog' />
     </div>
   );
 };
